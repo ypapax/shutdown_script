@@ -1,0 +1,6 @@
+version: "3"
+services:
+  trap_exit_container:
+    build:  .
+    tty:  true
+    container_name:  trap_exit
