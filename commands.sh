@@ -20,9 +20,20 @@ comp(){
 create_instance(){
 	cd $GOPATH/src/github.com/shutdown_script
 	gcloud beta compute instances create-with-container myinstance \
-	--container-image ypapax/trap_exit \
-	--metadata-from-file shutdown-script=./on_shutdown.sh
+	--container-image ypapax/trap_exit #\
+#	--metadata-from-file shutdown-script=./on_shutdown.sh
 
+}
+
+repush(){
+	push
+	gcloud beta compute instances delete myinstance --quiet
+	create_instance
+	ssh
+}
+
+ssh(){
+	gcloud compute ssh myinstance
 }
 
 logs(){
