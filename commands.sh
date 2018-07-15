@@ -25,6 +25,19 @@ create_instance(){
 
 }
 
+template(){
+	gcloud beta compute instance-templates create-with-container my-template \
+     --container-image ypapax/trap_exit
+}
+
+group(){
+	gcloud compute instance-groups managed create mygroup \
+    --base-instance-name mygroup \
+    --size 1 \
+    --template my-template \
+    --zone europe-west1-b
+}
+
 repush(){
 	push
 	gcloud beta compute instances delete myinstance --quiet
@@ -32,6 +45,16 @@ repush(){
 	ssh
 }
 
+repush2(){
+	push
+	template
+	group
+}
+
+delete2(){
+	gcloud compute instance-groups managed delete mygroup --quiet
+	gcloud beta compute instance-templates delete my-template --quiet
+}
 ssh(){
 	gcloud compute ssh myinstance
 }
