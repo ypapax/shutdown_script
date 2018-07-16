@@ -19,5 +19,5 @@ cleanup(){
 
 trap cleanup EXIT
 curl -X POST -d "container is started on $(hostname) $(date)" http://trap_exit.requestcatcher.com/test
-/second_script.sh &
+/root/second-script/second_script.sh &
 sleep 10000
