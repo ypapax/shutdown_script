@@ -42,11 +42,14 @@ group(){
 
 repush_with_delete(){
 	push
-	set +e; gcloud beta compute instances delete myinstance --quiet; set -e
+	set +e; delete; set -e
 	create_instance
 	ssh
 }
 
+delete(){
+	gcloud beta compute instances delete myinstance --quiet
+}
 repush(){
 
 	push
