@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -ex
 build(){
+	build_go
 	cd $GOPATH/src/github.com/ypapax/shutdown_script
 	docker build -t ypapax/trap_exit .
 }
@@ -47,6 +48,7 @@ repush_with_delete(){
 }
 
 repush(){
+
 	push
 	reboot
 	ssh

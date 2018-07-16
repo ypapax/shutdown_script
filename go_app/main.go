@@ -42,7 +42,7 @@ func main() {
 				glog.Infof("cleanup started")
 				postListenerLog("cleanup started")
 
-				time.Sleep(time.Second)
+				time.Sleep(10 * time.Second)
 				glog.Infof("cleanup is finished")
 				postListenerLog("cleanup is finished")
 			}(sig)
