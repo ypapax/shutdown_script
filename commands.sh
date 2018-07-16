@@ -74,7 +74,7 @@ logs(){
 	gcloud beta logging read 'resource.type=global AND jsonPayload.instance.name=myinstance' \
 		--freshness 600s \
 		--order=desc \
-		--limit=100 \
+		--limit=1000 \
 		--format=json \
 		 | jq  'reverse' \
 		 | jq  -C '.[] | .timestamp + "  " + .jsonPayload.data'
