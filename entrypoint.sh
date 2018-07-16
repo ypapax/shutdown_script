@@ -10,14 +10,14 @@ hostname
 
 
 cleanup(){
-	pkill -f go_app
-	while kill -0 $pID1; do
-	    sleep 1
-	done
-
-	while kill -0 $pID2; do
-	    sleep 1
-	done
+#	pkill -f go_app
+#	while kill -0 $pID1; do
+#	    sleep 1
+#	done
+#
+#	while kill -0 $pID2; do
+#	    sleep 1
+#	done
 	curl -X POST -d "cleanup is called for $(hostname) $(date)" http://trap_exit.requestcatcher.com/test
 	echo cleanup is called
 	curl -X POST -d "cleanup is called log: $(cat $log)" http://trap_exit.requestcatcher.com/test
