@@ -17,10 +17,19 @@ import (
 	"github.com/golang/glog"
 )
 
+var AppName string
+
 func main() {
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt, os.Kill, syscall.SIGTERM)
+	appName := flag.String("name", "", "application name")
 	flag.Parse()
+	if len(*appName) == 0 {
+		glog.Error("empty -name")
+		flag.Usage()
+		return
+	}
+	AppName = *appName
 	go func() {
 		for sig := range c {
 			func(sig os.Signal) {
@@ -39,7 +48,7 @@ func main() {
 			}(sig)
 		}
 	}()
-	glog.Infof("started go app")
+	glog.Infof("started go app %+v", AppName)
 	postListenerLog("started go app")
 	time.Sleep(time.Hour)
 	glog.Flush()
@@ -55,7 +64,7 @@ func postListenerLog(msg string) error {
 	if err := post("http://trap_exit.requestcatcher.com/test", nil, map[string]string{
 		"msg":    msg,
 		"time":   time.Now().Format(time.RFC3339),
-		"source": h + "_golang",
+		"source": h + "_golang_" + AppName,
 	}, nil); err != nil {
 		glog.Error(err)
 		return err

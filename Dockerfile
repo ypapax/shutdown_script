@@ -12,4 +12,5 @@ COPY entrypoint.sh /root/scripts/entrypoint.sh
 COPY second_script.sh /root/scripts/second_script.sh
 COPY go_app/go_app /root/go_app
 
-CMD ["/root/go_app", "-alsologtostderr", "-v", "4"]
+CMD ["/root/go_app", "-alsologtostderr", "-v", "4", "-name", "app1"]
+CMD ["/root/go_app", "-alsologtostderr", "-v", "4", "-name", "app2"]
