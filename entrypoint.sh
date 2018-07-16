@@ -27,12 +27,13 @@ cleanup(){
 }
 
 trap cleanup EXIT
-curl -X POST -d "container is started on $(hostname) $(date)" http://trap_exit.requestcatcher.com/test
-ls -la /root/scripts
-/root/go_app -v 4 -alsologtostderr -name app1 &
-pID1=$!
-/root/go_app -v 4 -alsologtostderr -name app2 &
-pID2=$!
-/root/scripts/second_script.sh -D
+#curl -X POST -d "container is started on $(hostname) $(date)" http://trap_exit.requestcatcher.com/test
+#ls -la /root/scripts
+#/root/go_app -v 4 -alsologtostderr -name app1 &
+#pID1=$!
+#/root/go_app -v 4 -alsologtostderr -name app2 &
+#pID2=$!
+#/root/scripts/second_script.sh -D
 
+exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
 sleep 10000
