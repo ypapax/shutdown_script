@@ -1,24 +1,24 @@
 #!/usr/bin/env bash
 set -ex
 build(){
-	cd $GOPATH/src/github.com/shutdown_script
+	cd $GOPATH/src/github.com/ypapax/shutdown_script
 	docker build -t ypapax/trap_exit .
 }
 
 push(){
 	build
-	cd $GOPATH/src/github.com/shutdown_script
+	cd $GOPATH/src/github.com/ypapax/shutdown_script
 	docker push ypapax/trap_exit
 }
 
 comp(){
-	cd $GOPATH/src/github.com/shutdown_script
+	cd $GOPATH/src/github.com/ypapax/shutdown_script
 	docker-compose build
 	docker-compose up
 }
 
 create_instance(){
-	cd $GOPATH/src/github.com/shutdown_script
+	cd $GOPATH/src/github.com/ypapax/shutdown_script
 	gcloud beta compute instances create-with-container myinstance \
 	--container-image ypapax/trap_exit #\
 #	--metadata-from-file shutdown-script=./on_shutdown.sh
@@ -38,10 +38,16 @@ group(){
     --zone europe-west1-b
 }
 
+repush_with_delete(){
+	push
+	set +e; gcloud beta compute instances delete myinstance --quiet; set -e
+	create_instance
+	ssh
+}
+
 repush(){
 	push
-	gcloud beta compute instances delete myinstance --quiet
-	create_instance
+	reboot
 	ssh
 }
 
@@ -57,6 +63,10 @@ delete2(){
 }
 ssh(){
 	gcloud compute ssh myinstance
+}
+
+reboot(){
+	gcloud compute ssh myinstance -- "sudo reboot"
 }
 
 logs(){
