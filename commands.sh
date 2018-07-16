@@ -12,6 +12,7 @@ push(){
 }
 
 comp(){
+	build_go
 	cd $GOPATH/src/github.com/ypapax/shutdown_script
 	docker-compose build
 	docker-compose up
@@ -90,6 +91,11 @@ resize(){
 
 list(){
 	gcloud compute instances list
+}
+
+build_go(){
+	cd $GOPATH/src/github.com/ypapax/shutdown_script/go_app
+	GOOS=linux GOARCH=amd64 go build
 }
 
 $@
