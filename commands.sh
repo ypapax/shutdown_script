@@ -70,4 +70,16 @@ logs(){
 
 }
 
+resize(){
+	size=$1
+	if [ -z "$size" ]; then
+		size=2 # default is 2
+	fi
+	gcloud compute instance-groups managed resize mygroup --size=$size
+}
+
+list(){
+	gcloud compute instances list
+}
+
 $@
