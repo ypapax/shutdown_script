@@ -8,5 +8,4 @@ exec 2>&1
 date
 hostname
 
-exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
-sleep 10000
+exec /usr/bin/supervisord

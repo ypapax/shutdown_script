@@ -9,6 +9,7 @@ COPY entrypoint.sh /root/scripts/entrypoint.sh
 COPY second_script.sh /root/scripts/second_script.sh
 COPY go_app/go_app /root/go_app
 
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY supervisord1.conf /etc/supervisor/conf.d/supervisord1.conf
+COPY supervisord2.conf /etc/supervisor/conf.d/supervisord2.conf
 
 ENTRYPOINT ["/root/scripts/entrypoint.sh"]

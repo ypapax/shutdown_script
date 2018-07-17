@@ -51,7 +51,6 @@ delete(){
 	gcloud beta compute instances delete myinstance --quiet
 }
 repush(){
-
 	push
 	reboot
 	ssh
